@@ -1,8 +1,144 @@
-<header>header</header>
+<nav class="header-nav">
+  <div class="left-nav">
+    <a href="/">
+      <img
+        width="15"
+        height="18"
+        loading="lazy"
+        src="{{ 'logo.svg' | asset_url }}">
+    </a>
+  </div>
 
+  <div class="middle-nav">
+    <ul class="middle-nav-links">
+      {% comment %} Loop through each link in the 'main-menu' linklist defined in the Shopify navigation. {% endcomment %}
+      {% for link in linklists['main-menu'].links -%}
+        {% comment %} Render a list item for each menu link, using the link title and URL. {% endcomment %}
+        <li>{{ link.title | link_to: link.url }}</li>
+      {%- endfor %}
+    </ul>
+  </div>
+
+  <div class="left-nav">
+    <a href="/cart">
+      <img
+        width="20"
+        height="23"
+        loading="lazy"
+        src="{{ 'cart.png' | asset_url }}">
+    </a>
+    {% comment %} Display the current number of items in the cart. {% endcomment %}
+    <p>{{ cart.item_count }}</p>
+  </div>
+</nav>
+
+
+<style>
+  .shopping-img {
+    cursor: 'pointer';
+    margin-bottom: 10px;
+  }
+
+  .header-nav {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0 30px;
+    background-color: white;
+  }
+
+
+  .left-nav {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .middle-nav-links {
+    display: flex;
+    font-size: 16px;
+  }
+
+  .middle-nav-links li {
+    list-style-type: none;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .middle-nav-links li:hover {
+    text-decoration: underline;
+  }
+
+  .middle-nav-links a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .right-nav-items {
+    display: flex;
+    align-items: center;
+  }
+  .search-nav {
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 15px;
+    border: none;
+    background-color: rgb(239, 234, 234);
+  }
+
+
+  .left-nav p {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    position: absolute;
+    top: 10px;
+    right: -13px;
+    background-color: #196d8f;
+    color: white;
+    border-radius: 50%;
+    padding: 4px 1px;
+    font-size: 12px;
+    min-width: 18px;
+    text-align: center;
+    line-height: 1;
+  }
+
+
+  @media (max-width: 480px) {
+
+    .header-nav {
+      padding-top: 10px;
+    }
+
+    .middle-nav {
+      display: none;
+    }
+
+  }
+
+
+</style>
+
+
+{% comment %} 
+                     
+  "name": The internal name of the section, shown in the Shopify theme editor.
+  
+  "settings": An array of configurable options for this section. 
+    - "type": Defines the input type; in this case, "text" for a simple text field. 
+    - "id": A unique identifier used to access this setting in the Liquid template (e.g., section.settings.header_text). 
+    - "label": The name shown beside the input field in the Shopify editor. 
+    - "default": The default value shown if the merchant doesn't change the setting.
+  
+  "presets": Defines default configuration when this section is first added. 
+    - "name": The display name shown in the theme editor’s "Add section" panel. 
+          
+{% endcomment %}
 {% schema %}
+
   {
-    "name": "Header",
+    "name": "header",
     "settings": [
       {
         "type": "text",
@@ -13,9 +149,9 @@
     ],
     "presets": [
       {
-        "name": "Default",
-        "category": "Header"
+        "name": "header"
       }
     ]
   }
+
 {% endschema %}

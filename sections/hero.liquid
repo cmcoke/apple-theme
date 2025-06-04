@@ -1,8 +1,8 @@
 <section>
   <div>
     {% comment %} 
-                                          Check if an image is set in the section settings; if so, display the version with an image. 
-                            {% endcomment %}
+                                                            Check if an image is set in the section settings; if so, display the version with an image. 
+                                        {% endcomment %}
     {%- if section.settings.image != blank -%}
       <div class="with-image">
 
@@ -13,16 +13,16 @@
           <p class="description">{{ section.settings.description_text }}</p>
 
           {% comment %} 
-                                                                                    If no blocks have been added in the theme editor, show default static buttons. 
-                                                                      {% endcomment %}
+                                                                                                                        If no blocks have been added in the theme editor, show default static buttons. 
+                                                                                                    {% endcomment %}
           {%- if section.blocks.size == 0 -%}
             <div class="buttons">
               <a href="#" class="button">Learn more</a>
               <a href="#" class="button">Buy now</a>
             </div>
           {% comment %} 
-                                                                                    Otherwise, attempt to render dynamic buttons based on block settings. 
-                                                                      {% endcomment %}
+                                                                                                                        Otherwise, attempt to render dynamic buttons based on block settings. 
+                                                                                                    {% endcomment %}
           {% else %}
             <div class="buttons-dynamic">
               <a href="{{ block.settings.button_url }}" class="button">{{ block.settings.button_text | escape }}</a>
@@ -32,8 +32,8 @@
         </div>
       </div>
     {% comment %} 
-                                          If no image is set, fall back to rendering a default layout without an image. 
-                            {% endcomment %}
+                                                            If no image is set, fall back to rendering a default layout without an image. 
+                                        {% endcomment %}
     {%- else -%}
       <div class="default">
         <div class="content-container">
@@ -43,20 +43,20 @@
           <p class="description">{{ section.settings.description_text }}</p>
 
           {% comment %} 
-                                                                                    If no blocks have been added, show default static buttons. 
-                                                                      {% endcomment %}
+                                                                                                                        If no blocks have been added, show default static buttons. 
+                                                                                                    {% endcomment %}
           {%- if section.blocks.size == 0 -%}
             <div class="buttons">
               <a href="#" class="button">Learn more</a>
               <a href="#" class="button">Buy now</a>
             </div>
           {% comment %} 
-                                                                                    If blocks are present, loop through each block and render buttons dynamically. 
-                                                                      {% endcomment %}
+                                                                                                                        If blocks are present, loop through each block and render buttons dynamically. 
+                                                                                                    {% endcomment %}
           {% else %}
             {% comment %} 
-                                                                                                  Loop through each block to render a button with the settings provided in the block. 
-                                                                                    {% endcomment %}
+                                                                                                                                            Loop through each block to render a button with the settings provided in the block. 
+                                                                                                                        {% endcomment %}
             {% for block in section.blocks %}
               <div class="buttons-dynamic">
                 <a href="{{ block.settings.button_url }}" class="button">{{ block.settings.button_text | escape }}</a>
@@ -178,24 +178,24 @@
 </style>
 
 {% comment %} 
-    
-      "name": Sets the internal name of the section as seen in the Shopify editor.
+          
+  "name": Sets the internal name of the section as seen in the Shopify editor.
   
-      "settings": Defines top-level settings for the section, configurable in the theme editor. 
-          - "type": The input type in the Shopify editor (text field, image picker, etc.). 
-          - "id": The unique identifier used to access this setting in Liquid (e.g., section.settings.title_text). 
-          - "label": The text shown in the theme editor for the field. 
-          - "default": A fallback value if no user input is provided. 
-          - "info": Optional helper text shown in the editor to guide the user.
+  "settings": Defines top-level settings for the section, configurable in the theme editor. 
+      - "type": The input type in the Shopify editor (text field, image picker, etc.). 
+      - "id": The unique identifier used to access this setting in Liquid (e.g., section.settings.title_text). 
+      - "label": The text shown in the theme editor for the field. 
+      - "default": A fallback value if no user input is provided. 
+      - "info": Optional helper text shown in the editor to guide the user.
   
-      "blocks": Defines repeatable blocks users can add dynamically within this section. 
-          - "type": The identifier of the block, used internally. 
-          - "name": The display name shown in the Shopify editor. 
-          - "settings": Similar to section settings, but scoped to each block.
+  "blocks": Defines repeatable blocks users can add dynamically within this section. 
+      - "type": The identifier of the block, used internally. 
+      - "name": The display name shown in the Shopify editor. 
+      - "settings": Similar to section settings, but scoped to each block.
   
-      "presets": Defines default section settings and layout when the section is added. 
-          - "name": The display name shown when selecting this section in the theme editor. 
-    
+  "presets": Defines default section settings and layout when the section is added. 
+      - "name": The display name shown when selecting this section in the theme editor. 
+          
 {% endcomment %}
 {% schema %}
 

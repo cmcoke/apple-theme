@@ -1,0 +1,4 @@
+.shopify
+*.yml
+node_modules
+src

@@ -3,7 +3,11 @@
     "hero": {
       "type": "hero",
       "settings": {}
+    },
+    "grid": {
+      "type": "grid",
+      "settings": {}
     }
   },
-  "order": ["hero"]
+  "order": ["hero", "grid"]
 }

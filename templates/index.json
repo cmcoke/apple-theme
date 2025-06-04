@@ -1,13 +1,9 @@
 {
   "sections": {
-    "header": {
-      "type": "header",
-      "settings": {}
-    },
-    "footer": {
-      "type": "footer",
+    "hero": {
+      "type": "hero",
       "settings": {}
     }
   },
-  "order": ["header", "footer"]
+  "order": ["hero"]
 }

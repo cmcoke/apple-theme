@@ -1,20 +1,309 @@
-<footer>footer</footer>
+<footer class="footer-main">
+  <div class="hr-div">
+    <hr class="footer-hr">
+  </div>
 
+  <div class="footer-sec-1">
+
+    {% comment %} Check if there are no blocks defined in the section. If true, display placeholder content with repeated "X" paragraphs. {% endcomment %}
+    {% if section.blocks.size == 0 %}
+      <div>
+        <p>X</p>
+        <p>X</p>
+        <p>X</p>
+        <p>X</p>
+        <p>X</p>
+        <p>X</p>
+      </div>
+      <div>
+        <p>X</p>
+        <p>X</p>
+        <p>X</p>
+        <p>X</p>
+        <p>X</p>
+        <p>X</p>
+      </div>
+      <div>
+        <p>X</p>
+        <p>X</p>
+        <p>X</p>
+        <p>X</p>
+        <p>X</p>
+        <p>X</p>
+      </div>
+      <div>
+        <p>X</p>
+        <p>X</p>
+        <p>X</p>
+        <p>X</p>
+        <p>X</p>
+        <p>X</p>
+      </div>
+    {% else %}
+      <div class="dynamic-blocks-wrapper">
+        <div class="footer-blocks">
+          {% comment %} Loop through each block added in the theme editor and output the block's content dynamically. {% endcomment %}
+          {% for block in section.blocks %}
+            <div class="footer-block">
+              <ul>
+                {% comment %} Display a single list item containing a link using the block’s `link` and `text` settings. {% endcomment %}
+                <li>
+                  <a href="{{ block.settings.link }}" class="footer-block-link">{{ block.settings.text | escape }}</a>
+                </li>
+              </ul>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="hr-div">
+    <hr class="footer-hr">
+  </div>
+  <div class="footer-links">
+    {% comment %} Check if customer accounts are enabled in the store settings. {% endcomment %}
+    {% if shop.customer_accounts_enabled %}
+      {% comment %} If a customer is logged in, show a "My Account" link. {% endcomment %}
+      {% if customer %}
+        <p>
+          <a href="/account">My Account</a>
+        </p>
+      {% comment %} If no customer is logged in, show "Register" and "Login" links. {% endcomment %}
+      {% else %}
+        <p>
+          <a href="/account/register">Register</a>
+          |
+          <a href="/account/login">Login</a>
+        </p>
+      {% endif %}
+    {% endif %}
+  </div>
+
+  <div class="footer-sec-2">
+    <p>
+      <a href="/blogs/news">Guides</a>
+    </p>
+    <p>
+      <a href="/blogs/news">Terms of Sale</a>
+    </p>
+    <p>
+      <a href="/blogs/news">Privacy Policy</a>
+    </p>
+    <p>
+      <a href="/blogs/news">Visit our Blog</a>
+    </p>
+  </div>
+</footer>
+
+
+<style>
+  .footer-main {
+    background: {{ section.settings.background }};
+    color: {{ section.settings.text_color }};
+    padding: 10px;
+    margin-top: 50px;
+  }
+
+  .footer-sec-1 {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-blocks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .footer-block {
+    margin: 10px;
+    /* Adjust width for multiple blocks */
+    flex: 1 1 22%;
+  }
+
+  .footer-block ul {
+    list-style: none;
+    padding: 0;
+  }
+  .dynamic-blocks-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .footer-block-link {
+    color: {{ section.settings.text_color }};
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 8px;
+    transition: color 0.3s ease;
+  }
+
+  .footer-block-link:hover {
+    color: #007bff;
+  }
+
+  .footer-sec-2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .footer-sec-2 p {
+    padding: 10px;
+  }
+
+  .footer-sec-2 a {
+    text-decoration: none;
+    color: black;
+  }
+
+  .hr-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  /* Styling for the horizontal line */
+  .footer-hr {
+    margin: 30px 0;
+    border: 0;
+    border-top: 1px solid #ddd;
+    width: 80%;
+
+  }
+
+  /* Styling for the Register and Login links */
+  .footer-links {
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .footer-links a {
+    color: {{ section.settings.text_color }};
+    text-decoration: none;
+    font-size: 16px;
+    margin: 0 15px;
+    transition: color 0.3s ease;
+  }
+
+  .footer-links a:hover {
+    color: #007bff;
+  }
+
+  /* Mobile and Tablet Responsiveness */
+  @media (max-width: 768px) {
+    .footer-sec-1 {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .footer-blocks {
+      justify-content: center;
+    }
+
+    .footer-block {
+      /* Stacks blocks vertically on small screens */
+      flex: 1 1 100%;
+      text-align: center;
+    }
+
+    .footer-sec-2 p {
+      padding: 5px;
+    }
+
+    .footer-hr {
+      width: 90%;
+    }
+
+    .footer-links a {
+      font-size: 14px;
+      margin: 0 10px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-block-link {
+      font-size: 14px;
+    }
+
+    .footer-sec-2 {
+      gap: 5px;
+    }
+  }
+</style>
+
+{% comment %} 
+  This schema defines settings and blocks for a customizable footer section in the Shopify theme editor.
+  
+  "name": "Footer"  
+    → Sets the display name of the section in the Shopify editor.
+  
+  "settings": [...]  
+    → Defines general, section-level settings users can configure: 
+      - type: "color" → Creates a color picker input. 
+      - id: "background" → Unique identifier used to reference this setting in Liquid. 
+      - label: "Background" → Label shown in the Shopify admin. 
+      - default: "#F4F4F4" → Default value for the background color. 
+      - Another setting is for text color with similar structure.
+  
+  "blocks": [...]  
+    → Allows users to add multiple repeated items (blocks) inside the section: 
+      - name: "Links" → Name of each block in the Shopify editor. 
+      - type: "links" → Internal identifier for the block. 
+      - settings: [...] → Defines inputs inside each block: 
+      - text input for "Text" (what the link says) 
+      - url input for "Link" (where the link goes)
+  
+  "presets": [...]  
+  → Defines default content and structure when the section is added to a page: 
+  - name: "footer" → Default preset name shown in the theme editor.
+  
+  This schema allows users to control the footer background color, text color, and add custom link blocks through the Shopify UI. 
+{% endcomment %}
 {% schema %}
   {
     "name": "Footer",
     "settings": [
       {
-        "type": "text",
-        "id": "footer_text",
-        "label": "Footer Text",
-        "default": "Footer"
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#F4F4F4"
+      }, {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text",
+        "default": "#000000"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Links",
+        "type": "links",
+        "settings": [
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text",
+            "default": "link"
+          }, {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          }
+        ]
       }
     ],
     "presets": [
       {
-        "name": "Default",
-        "category": "Footer"
+        "name": "footer"
       }
     ]
   }

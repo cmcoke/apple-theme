@@ -31,24 +31,24 @@
         "image": "shopify://shop_images/praveen-thirumurugan-3tINDYanpD0-unsplash.jpg",
         "image2": "shopify://shop_images/onur-binay-yvcGXgc14rE-unsplash.jpg",
         "image3": "shopify://shop_images/nangialai-stoman-AiM9jEeYxik-unsplash.jpg",
-        "button_text": "Button",
-        "title": "title",
-        "title2": "title",
-        "title3": "title",
-        "description": "description",
-        "description2": "description",
-        "description3": "description",
-        "button_url": "",
-        "button_text2": "Button",
-        "button_url2": "",
-        "button_text3": "Button",
-        "button_url3": ""
+        "button_text": "Learn More",
+        "title": "What the latest on the iPhone watch?",
+        "title2": "Apple debuts the new iPhone S6",
+        "title3": "Macbook Air now in stock",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum leo id ante efficitur commodo. Morbi a diam felis. Quisque ullamcorper risus non est pulvinar fringilla.",
+        "description2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum leo id ante efficitur commodo. Morbi a diam felis. Quisque ullamcorper risus non est pulvinar fringilla.",
+        "description3": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum leo id ante efficitur commodo. Morbi a diam felis. Quisque ullamcorper risus non est pulvinar fringilla.",
+        "button_url": "https://apple.com",
+        "button_text2": "Learn More",
+        "button_url2": "https://apple.com",
+        "button_text3": "Learn More",
+        "button_url3": "https://apple.com"
       }
+    },
+    "slider": {
+      "type": "slider",
+      "settings": {}
     }
   },
-  "order": [
-    "hero",
-    "grid",
-    "card"
-  ]
+  "order": ["hero", "grid", "card", "slider"]
 }

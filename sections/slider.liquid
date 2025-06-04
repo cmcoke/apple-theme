@@ -1,0 +1,91 @@
+<section class="image-slider">
+  <div class="slider-container">
+    <div class="slider-track">
+      <div class="slider-item" style="background-image: url('{{ 'seven.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'a.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'c.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'm.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'one.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'two.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'seven.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'six.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'ten.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'd.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'e.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'h.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'seven.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'a.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'c.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'm.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'one.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'two.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'seven.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'six.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'ten.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'd.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'e.jpg' | asset_url }}');"></div>
+      <div class="slider-item" style="background-image: url('{{ 'h.jpg' | asset_url }}');"></div>
+    </div>
+  </div>
+
+</section>
+
+
+<style>
+  /* Container for the image slider */
+  .image-slider {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .slider-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* The track of images that will slide */
+  .slider-track {
+    display: flex;
+    animation: slide 208s infinite linear;
+  }
+
+  /* Each individual image item */
+  .slider-item {
+    /* Width of the images */
+    width: 420px;
+    /* Height of the images */
+    height: 280px;
+    background-size: cover;
+    background-position: center;
+    /* Space between the images */
+    margin: 0 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+
+  /* Keyframes for sliding animation */
+  @keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      /* Move to the left by the width of all images */
+      transform: translateX(-100%);
+    }
+  }
+</style>
+
+<script>
+  // JavaScript to duplicate the slider items to create a seamless loop
+  document.addEventListener('DOMContentLoaded', () => {
+    const sliderTrack = document.querySelector('.slider-track');
+    const sliderItems = document.querySelectorAll('.slider-item');
+    
+    // Clone the images to make the loop continuous
+    sliderItems.forEach(item => {
+      const clone = item.cloneNode(true);
+      sliderTrack.appendChild(clone);
+    });
+  });
+</script>

@@ -1,0 +1,278 @@
+<section>
+  <div class="card-grid">
+
+    <div class="card">
+
+      {% comment %} Check if the first image setting is not blank. If it's set, display it as the card background image. {% endcomment %}
+      {%- if section.settings.image != blank -%}
+        <div class="card-image" style="background-image: url('{{ section.settings.image | image_url }}');"></div>
+      {% comment %} If the first image setting is blank, fall back to using the default image 'seven.jpg'. {% endcomment %}
+      {%- else -%}
+        <div class="card-image" style="background-image: url('{{ 'seven.jpg' | asset_url }}');"></div>
+      {%- endif -%}
+
+      <div class="card-content">
+        <h3 class="card-title">{{ section.settings.title }}</h3>
+        <p class="card-description">{{ section.settings.description }}</p>
+        <a href="{{ section.settings.button_url }}" class="card-button">{{ section.settings.button_text }}</a>
+      </div>
+    </div>
+
+
+    <div class="card">
+
+      {% comment %} Check if the second image setting is not blank. If it's set, display it as the card background image. {% endcomment %}
+      {%- if section.settings.image2 != blank -%}
+        <div class="card-image" style="background-image: url('{{ section.settings.image2 | image_url }}');"></div>
+
+      {% comment %} If the second image setting is blank, fall back to using the default image 'seven.jpg'. {% endcomment %}
+      {%- else -%}
+        <div class="card-image" style="background-image: url('{{ 'seven.jpg' | asset_url }}');"></div>
+      {%- endif -%}
+
+      <div class="card-content">
+        <h3 class="card-title">{{ section.settings.title2 }}</h3>
+        <p class="card-description">{{ section.settings.description2 }}</p>
+        <a href="{{ section.settings.button_url2 }}" class="card-button">{{ section.settings.button_text2 }}</a>
+      </div>
+    </div>
+
+    <div class="card">
+
+      {% comment %} Check if the third image setting is not blank. If it's set, display it as the card background image. {% endcomment %}
+      {%- if section.settings.image3 != blank -%}
+        <div class="card-image" style="background-image: url('{{ section.settings.image3 | image_url }}');"></div>
+      {% comment %} If the third image setting is blank, fall back to using the default image 'seven.jpg'. {% endcomment %}
+      {%- else -%}
+        <div class="card-image" style="background-image: url('{{ 'seven.jpg' | asset_url }}');"></div>
+      {%- endif -%}
+
+      <div class="card-content">
+        <h3 class="card-title">{{ section.settings.title3 }}</h3>
+        <p class="card-description">{{ section.settings.description3 }}</p>
+        <a href="{{ section.settings.button_url3 }}" class="card-button">{{ section.settings.button_text3 }}</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<style>
+  /* Container for the grid */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    padding: 2px;
+
+  }
+
+  /* Card styling */
+  .card {
+    background-color: #fff;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease
+    , box-shadow 0.3s ease;
+  }
+
+  /* Hover effect */
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Card image */
+  .card-image {
+    width: 100%;
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Card content (title and description) */
+  .card-content {
+    padding: 20px;
+    flex-grow: 1;
+  }
+
+  /* Card title styling */
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  /* Card description styling */
+  .card-description {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+  }
+
+  /* Button styling */
+  .card-button {
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 25px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+
+  .card-button:hover {
+    background-color: #0056b3;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .card-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .card-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% comment %}  
+  "name": Defines the internal name of the section. This is shown in the Shopify theme editor when selecting or managing sections.
+  
+  "settings": An array of configurable options available in the Shopify section editor. Each object inside represents a single setting field.
+  
+    - {
+        "type": "image_picker": Allows users to upload or select an image from the Shopify media library.
+        "id": "image": A unique identifier used to reference this image setting in the Liquid code (e.g., section.settings.image).
+        "label": "image": The label displayed in the editor UI.
+        "info": "400 x 120px .png recommended": Helpful instruction shown to the merchant about the ideal image dimensions.
+      }
+  
+    - The above image_picker settings are repeated for image2 and image3 for three separate cards.
+  
+    - {
+        "type": "text": Allows users to enter a short string of text.
+        "id": "button_text": ID for referencing the text (e.g., section.settings.button_text).
+        "label": "Button Text": Label shown beside the input field in the editor.
+        "default": "Button": Default value displayed when the section is added.
+      }
+  
+    - Text settings for "title", "title2", and "title3" to control the heading text for each card.
+    - Text settings for "description", "description2", and "description3" to allow different descriptions for each card.
+  
+    - {
+        "type": "url": Provides an input field where merchants can add a URL.
+        "id": "button_url": Unique ID to reference the URL value.
+        "label": "Button URL": Label shown in the editor UI.
+      }
+  
+    - Additional text and URL settings for the second and third cards:
+      "button_text2", "button_url2", "button_text3", "button_url3"
+  
+  "presets": Defines the default appearance and values when this section is first added via the Shopify editor.
+    - {
+        "name": "card": Display name shown in the “Add section” list in the Shopify theme editor.
+      }
+{% endcomment %}
+
+{% schema %}
+  {
+    "name": "card",
+    "settings": [
+
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "image",
+        "info": "400 x 120px .png recommended"
+      },
+      {
+        "type": "image_picker",
+        "id": "image2",
+        "label": "image2",
+        "info": "400 x 120px .png recommended"
+      },
+      {
+        "type": "image_picker",
+        "id": "image3",
+        "label": "image3",
+        "info": "400 x 120px .png recommended"
+      },
+
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button Text",
+        "default": "Button"
+      }, {
+        "type": "text",
+        "id": "title",
+        "label": "title",
+        "default": "title"
+      }, {
+        "type": "text",
+        "id": "title2",
+        "label": "title",
+        "default": "title"
+      }, {
+        "type": "text",
+        "id": "title3",
+        "label": "title",
+        "default": "title"
+      }, {
+        "type": "text",
+        "id": "description",
+        "label": "description",
+        "default": "description"
+      }, {
+        "type": "text",
+        "id": "description2",
+        "label": "description",
+        "default": "description"
+      }, {
+        "type": "text",
+        "id": "description3",
+        "label": "description",
+        "default": "description"
+      }, {
+        "type": "url",
+        "id": "button_url",
+        "label": "Button URL"
+      }, {
+        "type": "text",
+        "id": "button_text2",
+        "label": "Button Text",
+        "default": "Button"
+      }, {
+        "type": "url",
+        "id": "button_url2",
+        "label": "Button URL"
+      }, {
+        "type": "text",
+        "id": "button_text3",
+        "label": "Button Text",
+        "default": "Button"
+      }, {
+        "type": "url",
+        "id": "button_url3",
+        "label": "Button URL"
+      }
+
+    ],
+    "presets": [
+      {
+        "name": "card"
+      }
+    ]
+  }
+{% endschema %}

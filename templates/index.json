@@ -1,13 +1,54 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "hero",
-      "settings": {}
+      "settings": {
+        "title_text": "Macbook Air M4",
+        "description_text": "Sky high performance with M4"
+      }
     },
     "grid": {
       "type": "grid",
-      "settings": {}
+      "settings": {
+        "image": "shopify://shop_images/vinoth-ragunathan-Ze8FDej5tes-unsplash.jpg",
+        "image2": "shopify://shop_images/pro_endframe__e2wscfy18pme_large_49f1a9ff-15d0-43ee-b57d-9f7cdbe2592d.jpg",
+        "image3": "shopify://shop_images/klim-musalimov-XavMzuulAyQ-unsplash.jpg",
+        "image4": "shopify://shop_images/daniel-romero-kp9L5wv9z1A-unsplash.jpg"
+      }
+    },
+    "card": {
+      "type": "card",
+      "settings": {
+        "image": "shopify://shop_images/praveen-thirumurugan-3tINDYanpD0-unsplash.jpg",
+        "image2": "shopify://shop_images/onur-binay-yvcGXgc14rE-unsplash.jpg",
+        "image3": "shopify://shop_images/nangialai-stoman-AiM9jEeYxik-unsplash.jpg",
+        "button_text": "Button",
+        "title": "title",
+        "title2": "title",
+        "title3": "title",
+        "description": "description",
+        "description2": "description",
+        "description3": "description",
+        "button_url": "",
+        "button_text2": "Button",
+        "button_url2": "",
+        "button_text3": "Button",
+        "button_url3": ""
+      }
     }
   },
-  "order": ["hero", "grid"]
+  "order": [
+    "hero",
+    "grid",
+    "card"
+  ]
 }

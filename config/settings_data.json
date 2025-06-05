@@ -8,5 +8,74 @@
  * ------------------------------------------------------------
  */
 {
-  "current": {}
+  "current": {
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "header_text": "Hello World"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "links_Dz76Ea": {
+            "type": "links",
+            "settings": {
+              "text": "Google",
+              "link": "https://google.com"
+            }
+          },
+          "links_nbQP4q": {
+            "type": "links",
+            "settings": {
+              "text": "Samsung",
+              "link": "https://samsung.com"
+            }
+          },
+          "links_ghCaFh": {
+            "type": "links",
+            "settings": {
+              "text": "Microsoft",
+              "link": "https://Microsoft.com"
+            }
+          },
+          "links_bJQKN6": {
+            "type": "links",
+            "settings": {
+              "text": "IGN",
+              "link": "https://ign.com"
+            }
+          },
+          "links_aKiVqj": {
+            "type": "links",
+            "settings": {
+              "text": "Gamespot",
+              "link": "https://gamespot.com"
+            }
+          },
+          "links_8X7WwY": {
+            "type": "links",
+            "settings": {
+              "text": "LG",
+              "link": "https://lg.com"
+            }
+          }
+        },
+        "block_order": [
+          "links_Dz76Ea",
+          "links_nbQP4q",
+          "links_ghCaFh",
+          "links_bJQKN6",
+          "links_aKiVqj",
+          "links_8X7WwY"
+        ],
+        "settings": {
+          "background": "#f4f4f4",
+          "text_color": "#000000"
+        }
+      }
+    },
+    "content_for_index": []
+  }
 }

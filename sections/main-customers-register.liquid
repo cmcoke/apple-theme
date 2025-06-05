@@ -1,0 +1,168 @@
+{% comment %}  {% endcomment %}
+{% form 'create_customer' %}
+  <div class="form-wrapper">
+    <div class="form-content">
+      <!-- Image in the middle -->
+      <div class="form-image">
+        <img src="{{ 'three.ico' | asset_url }}" alt="Registration Image">
+      </div>
+      <!-- Form Fields -->
+      <h2 class="form-title">Create Account
+    </h2>
+
+      {% comment %}  {% endcomment %}
+      {{ form.errors | default_errors }}
+
+
+      <div class="form-group">
+        <input
+          placeholder="First Name"
+          type="text"
+          name="customer[first_name]"
+          id="first-name"
+          required>
+      </div>
+
+
+      <div class="form-group">
+        <input
+          placeholder="Last Name"
+          type="text"
+          name="customer[last_name]"
+          id="last-name"
+          required>
+      </div>
+
+
+      <div class="form-group">
+        <input
+          placeholder="Email"
+          type="email"
+          name="customer[email]"
+          id="email"
+          required>
+      </div>
+
+
+      <div class="form-group">
+        <input
+          placeholder="Password"
+          type="password"
+          name="customer[password]"
+          id="password"
+          required>
+      </div>
+
+      <div class="form-group submit">
+        <input type="submit" value="Create Account">
+      </div>
+    </div>
+
+
+  </div>
+{% endform %}
+
+
+<style>
+  /* Basic styling for the form */
+  .form-wrapper {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    background-color: #fff;
+
+    min-height: 100vh;
+    gap: 50px;
+  }
+
+  .form-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .form-title {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    font-size: 16px;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+
+  .submit input {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .submit input:hover {
+    background-color: #0056b3;
+  }
+
+  /* Image Styling */
+  .form-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form-image img {
+    max-width: 300px;
+    max-height: 300px;
+    border-radius: 8px;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .form-wrapper {
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .form-image img {
+      max-width: 250px;
+      max-height: 250px;
+    }
+  }
+</style>
+
+
+{% schema %}
+  {"name": "Register"}
+{% endschema %}

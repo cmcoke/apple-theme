@@ -1,0 +1,29 @@
+<section>
+  <h1>addesses</h1>
+  <p>Manage your shipping and billing addresses.</p>
+  {% form 'customer_address'
+    , customer.new_address %}
+    {% if customer.default_address %}
+      <div class="address">
+        <h2>Shipping Address</h2>
+        <p>{{ customer.default_address.address1 }}</p>
+        {% if customer.default_address.address2 != blank %}
+          <p>{{ customer.default_address.address2 }}</p>
+        {% endif %}
+        <p>{{ customer.default_address.city }}</p>
+        <p>{{ customer.default_address.zip }}</p>
+      </div>
+    {% else %}
+      <div class="empty-address">
+        <p>You have no default address set.</p>
+      </div>
+    {% endif %}
+    <button type="submit">Edit</button>
+  {% endform %}
+</section>
+
+{% schema %}
+  {
+    "name": "Addresses"
+  }
+{% endschema %}

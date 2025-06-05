@@ -1,0 +1,130 @@
+{% comment %} Begin paginating the collection's products, showing 8 products per page. {% endcomment %}
+{% paginate collection.products by 8 %}
+  <section class="collection-sec">
+    {% comment %} Display the title of the current collection (commented out in this case). {% endcomment %}
+    <div class="carousel-container">
+      <div class="products-carousel">
+        {% comment %} Loop through each product in the current collection page and display it. {% endcomment %}
+        {% for product in collection.products %}
+          <div class="product-card">
+            <img
+              width="850"
+              height="850"
+              loading="lazy"
+              src="{{ product.featured_image | image_url: width: 850, height: 850 }}"
+              alt="{{ product.featured_image.alt }}">
+            <a href="{{ product.url }}" class="product-link">
+              {{ product.title }}
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+</section>
+
+  {% comment %} Render the default pagination controls (e.g., previous/next page links). {% endcomment %}
+  {{ paginate | default_pagination }}
+{% endpaginate %}
+
+
+<style>
+  .collection-sec {
+    background: {{ section.settings.background }};
+    color: {{ section.settings.text_color }};
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .carousel-container {
+    /* Hides the excess content that overflows */
+    overflow: hidden;
+    /* Ensures the container takes full width */
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    /* Centers the carousel */
+    justify-content: center;
+
+  }
+
+  .products-carousel {
+    display: flex;
+    flex-wrap: nowrap;
+    /* Space between products */
+    gap: 20px;
+    /* Smooth transition for sliding */
+    transition: transform 0.3s ease;
+  }
+
+  .product-card {
+    text-align: center;
+    /* Fixed width for each product card */
+    width: 100px;
+  }
+
+  .product-card a {
+    font-size: 14px;
+    margin-top: 10px;
+    color: black;
+    text-decoration: none;
+  }
+
+  .product-card img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Optional: Style the pagination controls */
+  .pagination {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .product-card {
+      width: 120px;
+    }
+  }
+</style>
+
+
+{% comment %} 
+      
+  "name": The internal name of the section, shown in the Shopify theme editor.
+  
+  "settings": An array of configurable options for this section. 
+    - "type": Defines the type of input field shown in the editor (e.g., "color" shows a color picker).
+    - "id": A unique identifier used to access this setting in Liquid code (e.g., section.settings.background).
+    - "label": The label displayed next to the input field in the Shopify editor.
+    - "default": The default value for the input field when the section is first added.
+  
+  "presets": Defines the default configuration when this section is first added to a page.
+    - "name": The name of the section preset, shown in the theme editor’s "Add section" panel.
+      
+{% endcomment %}
+{% schema %}
+  {
+    "name": "collection",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#ffffff"
+      }, {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text",
+        "default": "#000000"
+      }
+    ],
+    "presets": [
+      {
+        "name": "collection"
+      }
+    ]
+  }
+{% endschema %}

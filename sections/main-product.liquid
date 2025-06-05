@@ -1,0 +1,384 @@
+<section class="product-main">
+  <div class="product-main-wrapper">
+    <div class="product-images">
+        {% comment %} Main Product Image: Displays the featured image of the product in large view. {% endcomment %}
+      <img
+        class="main-product-image"
+        width="600"
+        height="600"
+        loading="lazy"
+        src="{{ product.featured_image | image_url}}"
+        alt="{{ product.title }}">
+
+    </div>
+
+    <div class="product-details">
+      <h2>{{ product.title }}</h2>
+
+      {% comment %} Stock Availability: Shows if the product is in stock or out of stock based on its availability. {% endcomment %}
+      <p class="stock-status">
+        {% comment %} If the product is available, show "In Stock". {% endcomment %}
+        {% if product.available %}
+          <span class="in-stock">In Stock</span>
+        {% comment %}  If the product is not available, show "Out of Stock". {% endcomment %}
+        {% else %}
+          <span class="out-of-stock">Out of Stock</span>
+        {% endif %}
+      </p>
+
+      <p class="product-price">{{ product.price | money }}</p>
+
+      {% comment %}  Product Form: Allows the customer to select a variant and add the product to the cart. {% endcomment %}
+      {% form 'product'
+        , product %}
+        {% comment %} If the product has more than one variant (e.g., different sizes), show a dropdown for selection.{% endcomment %}
+        {% if product.variants.size > 1 %}
+          <h3>Select Size</h3>
+          {% comment %} Dropdown for selecting a product variant. {% endcomment %}
+          <select name="id" id="product-variant">
+            {% comment %} Loop through all product variants to display each one in the dropdown. {% endcomment %}
+            {% for variant in product.variants %}
+              {% comment %} Each option represents a variant with its title and price.{% endcomment %}
+              <option value="{{ variant.id }}" data-price="{{ variant.price | money }}">
+                {{ variant.title }}
+              </option>
+            {% endfor %}
+          </select>
+        {% else %}
+          <!-- Hidden input for single variant -->
+          <input
+            type="hidden"
+            name="id"
+            value="{{ product.variants.first.id }}">
+        {% endif %}
+
+        <!-- Add to Cart Button -->
+        <button
+          type="submit"
+          class="add-to-cart-btn"
+          id="add-to-cart-button">Add to Cart</button>
+      {% endform %}
+
+    </div>
+  </div>
+
+</section>
+
+{% comment %} Image Thumbnails: Renders all product images as clickable thumbnails that update the main image when clicked. {% endcomment %}
+<div class="product-description">
+  {% for image in product.images %}
+    {% comment %} Clicking this button updates the main product image to the selected thumbnail. {% endcomment %}
+    <button class="thumbnail-button" onclick="document.querySelector('.main-product-image').src='{{ image | image_url }}'">
+      <img
+        class="thumbnail"
+        src="{{ image | image_url }}"
+        alt="Thumbnail">
+    </button>
+  {% endfor %}
+</div>
+
+
+{% comment %} Product Description {% endcomment %}
+<div class="product-description">
+  {{ product.description | default: 'No description available.' }}
+</div>
+
+{% comment %} Message Displayed After Adding to Cart {% endcomment %}
+<div id="add-to-cart-message" style="display: none;">Added to Cart!</div>
+
+
+{% comment %} 
+  This script handles two main tasks on the product page:
+  
+  1. **Variant Price Update**: When a user selects a different product variant (like size), 
+      it updates the displayed price in real time based on the selected option.
+  
+  2. **Add to Cart (AJAX)**: Submits the add-to-cart form using AJAX to avoid a page reload. 
+      It sends the selected product to `/cart/add.js`, fetches the updated cart,
+      updates the cart count displayed on the page, and briefly shows a confirmation message.
+{% endcomment %}
+<script>
+  // Select all forms that post to /cart/add, typically for adding products to the cart
+  const addToCartForms = document.querySelectorAll('form[action="/cart/add"]');
+  
+  // Get the dropdown menu used to select product variants (e.g., sizes)
+  const variantSelect = document.getElementById('product-variant');
+  
+  // Select the DOM element that displays the product's price
+  const priceDisplay = document.querySelector('.product-price');
+  
+  // Listen for when the user changes the selected variant
+  variantSelect.addEventListener('change', function () {
+    // Get the currently selected <option> element
+    const selectedOption = this.options[this.selectedIndex];
+  
+    // Retrieve the data-price attribute from the selected option
+    const variantPrice = selectedOption.getAttribute('data-price');
+  
+    // Update the product price element with the new variant's price
+    priceDisplay.textContent = variantPrice;
+  });
+  
+  // Loop through each add-to-cart form and attach a submit event listener
+  addToCartForms.forEach((form) => {
+    form.addEventListener("submit", async (event) => {
+      // Prevent the form from submitting normally (i.e., reloading the page)
+      // event.preventDefault();
+  
+      // Create a FormData object containing the form's input data
+      const formData = new FormData(form);
+  
+      // Send the product info to the server to add the item to the cart via AJAX
+      await fetch("/cart/add.js", {
+        method: "POST", // Use POST to send data to the server
+        body: formData   // Attach the form data as the request body
+      });
+  
+      // After adding to the cart, fetch the current cart state as JSON
+      const res = await fetch("/cart.json");
+  
+      // Parse the JSON response to get the cart object
+      const cart = await res.json();
+  
+      // Update the text content of every element with class .cart-count to reflect the new item count
+      document.querySelectorAll(".cart-count").forEach((el) => {
+        el.textContent = cart.item_count;
+      });
+    
+      // Show a temporary message to confirm the item was added to the cart
+      const message = document.getElementById('add-to-cart-message');
+  
+      // Make the confirmation message visible
+      message.style.display = 'block';
+    
+      // Hide the message after 2 seconds
+      setTimeout(() => {
+        message.style.display = 'none';
+      }, 2000);
+    });
+  });
+</script>
+
+
+<style>
+
+  .product-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* flex-wrap: wrap; */
+    padding: 20px;
+    background-color: {{ settings.background }};
+    color: {{ settings.text_color }};
+  }
+
+
+  .product-main-wrapper {
+    display: flex;
+    /* flex-wrap: wrap; */
+    gap: 50px;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  .product-images {
+    flex: 1;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  }
+
+  .main-product-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .product-thumbnails {
+    margin-top: 10px;
+  }
+
+  .thumbnail-button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 5px;
+
+  }
+
+  .thumbnail-button .thumbnail {
+    width: 80px;
+    height: 80px;
+    margin: 5px;
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+  }
+
+  .thumbnail-button:hover .thumbnail {
+    transform: scale(1.1);
+  }
+
+  .product-details {
+    flex: 1;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .product-details select {
+    padding: 12px 20px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: pointer;
+    color: #333;
+    /* Removes the default arrow on some browsers */
+    appearance: none;
+    transition: border-color 0.3s ease;
+  }
+
+  .product-details select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+
+  .product-details h2 {
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  .stock-status {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+
+  .in-stock {
+    color: green;
+    font-weight: bold;
+  }
+
+  .out-of-stock {
+    color: red;
+    font-weight: bold;
+  }
+
+  .product-price {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+
+  .product-details select {
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .product-details button {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .product-details button:hover {
+    background-color: #0056b3;
+  }
+
+  .product-details button:focus {
+    outline: none;
+  }
+
+  .product-description {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .product-description p {
+    font-size: 16px;
+    line-height: 1.6;
+
+  }
+
+
+  #add-to-cart-message {
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 20px;
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .product-main-wrapper {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .product-details {
+      width: 100%;
+    }
+
+    .product-images {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+
+</style>
+
+{% comment %} 
+            
+      "name": The internal name of the section. This name appears in the Shopify theme editor for identification.
+      
+      "settings": An array of configurable options that merchants can adjust in the theme editor.
+        - "type": Specifies the kind of input control in the theme editor.
+          - "color": Renders a color picker for selecting background or text color.
+        - "id": A unique identifier used to reference the setting's value in the Liquid code (e.g., section.settings.background).
+        - "label": The text shown in the Shopify editor beside the input, helping users understand what they are configuring.
+        - "default": The default value assigned to the setting when the section is first added (e.g., a hex color code).
+      
+      "presets": Defines default configurations that appear in the theme editor when a new section is added.
+        - "name": The display name for the preset option within the "Add section" panel in the editor.
+        
+{% endcomment %}
+{% schema %}
+  {
+    "name": "Product-main",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#F4F4F4"
+      }, {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text",
+        "default": "#000000"
+      }
+    ],
+    "presets": [
+      {
+        "name": "product-main"
+      }
+    ]
+  }
+{% endschema %}

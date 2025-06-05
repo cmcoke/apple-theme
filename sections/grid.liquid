@@ -2,57 +2,57 @@
   <div class="grid-container">
 
     {% comment %} 
-            Check if the first image (image) setting is not blank. If it exists, render the container for the first image. 
-        {% endcomment %}
+                  Check if the first image (image) setting is not blank. If it exists, render the container for the first image. 
+            {% endcomment %}
     {%- if section.settings.image != blank -%}
       <div class="im-one">
         <h1></h1>
       </div>
     {% comment %} 
-            If the first image is blank, render a default image container instead. 
-        {% endcomment %}
+                  If the first image is blank, render a default image container instead. 
+            {% endcomment %}
     {%- else -%}
       <div class="def-image"></div>
     {%- endif -%}
 
     {% comment %} 
-            Check if the second image (image2) setting is not blank. If it exists, render the container for the second image. 
-        {% endcomment %}
+                  Check if the second image (image2) setting is not blank. If it exists, render the container for the second image. 
+            {% endcomment %}
     {%- if section.settings.image2 != blank -%}
       <div class="im-two">
         <h1></h1>
       </div>
     {% comment %} 
-            If the second image is blank, render a default image container instead. 
-        {% endcomment %}
+                  If the second image is blank, render a default image container instead. 
+            {% endcomment %}
     {%- else -%}
       <div class="def-image"></div>
     {%- endif -%}
 
     {% comment %} 
-            Check if the third image (image3) setting is not blank. If it exists, render the container for the third image. 
-        {% endcomment %}
+                  Check if the third image (image3) setting is not blank. If it exists, render the container for the third image. 
+            {% endcomment %}
     {%- if section.settings.image3 != blank -%}
       <div class="im-three">
         <h1></h1>
       </div>
     {% comment %} 
-            If the third image is blank, render a default image container instead. 
-        {% endcomment %}
+                  If the third image is blank, render a default image container instead. 
+            {% endcomment %}
     {%- else -%}
       <div class="def-image"></div>
     {%- endif -%}
 
     {% comment %} 
-            Check if the fourth image (image4) setting is not blank. If it exists, render the container for the fourth image. 
-        {% endcomment %}
+                  Check if the fourth image (image4) setting is not blank. If it exists, render the container for the fourth image. 
+            {% endcomment %}
     {%- if section.settings.image4 != blank -%}
       <div class="im-four">
         <h1></h1>
       </div>
     {% comment %} 
-            If the fourth image is blank, render a default image container instead. 
-        {% endcomment %}
+                  If the fourth image is blank, render a default image container instead. 
+            {% endcomment %}
     {%- else -%}
       <div class="def-image"></div>
     {%- endif -%}
@@ -74,7 +74,7 @@
   }
 
   .def-image {
-    background-image: url("{{ 'ten.jpg' | asset_url }}");
+    background-image: url("{{ 'two.jpg' | asset_url }}");
     background-size: cover;
     background-position: center;
     width: 100%;
@@ -116,18 +116,18 @@
 </style>
 
 {% comment %} 
-  
-  "name": The internal name of the section, shown in the Shopify theme editor.
-  
-  "settings": An array of configurable options for this section. 
-    - "type": Defines the type of input field shown in the editor (e.g., "image_picker" allows users to upload/select an image).
-    - "id": A unique identifier used to access this setting in Liquid code (e.g., section.settings.image).
-    - "label": The label displayed next to the input field in the Shopify editor.
-    - "info": Optional helper text shown below the input field to guide the user, such as recommended image size.
-  
-  "presets": Defines the default configuration when this section is first added to a page.
-    - "name": The name of the section preset, shown in the theme editor’s "Add section" panel.
-  
+    
+    "name": The internal name of the section, shown in the Shopify theme editor.
+    
+    "settings": An array of configurable options for this section. 
+      - "type": Defines the type of input field shown in the editor (e.g., "image_picker" allows users to upload/select an image).
+      - "id": A unique identifier used to access this setting in Liquid code (e.g., section.settings.image).
+      - "label": The label displayed next to the input field in the Shopify editor.
+      - "info": Optional helper text shown below the input field to guide the user, such as recommended image size.
+    
+    "presets": Defines the default configuration when this section is first added to a page.
+      - "name": The name of the section preset, shown in the theme editor’s "Add section" panel.
+    
 {% endcomment %}
 {% schema %}
   {
